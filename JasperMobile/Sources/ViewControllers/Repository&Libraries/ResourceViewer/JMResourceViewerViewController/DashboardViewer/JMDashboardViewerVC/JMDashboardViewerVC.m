@@ -45,10 +45,12 @@
 #import "JMAnalyticsManager.h"
 #import "JMJavascriptNativeBridge.h"
 
+#import "JMSaveDashboardViewController.h"
+#import "ALToastView.h"
 
 NSString * const kJMDashboardViewerPrimaryWebEnvironmentIdentifier = @"kJMDashboardViewerPrimaryWebEnvironmentIdentifier";
 
-@interface JMDashboardViewerVC() <JMDashboardLoaderDelegate, JMExternalWindowDashboardControlsVCDelegate>
+@interface JMDashboardViewerVC() <JMDashboardLoaderDelegate, JMExternalWindowDashboardControlsVCDelegate, JMSaveResourceViewControllerDelegate>
 @property (nonatomic, copy) NSArray *rightButtonItems;
 @property (nonatomic, strong) UIBarButtonItem *leftButtonItem;
 
@@ -90,7 +92,7 @@ NSString * const kJMDashboardViewerPrimaryWebEnvironmentIdentifier = @"kJMDashbo
 - (void)printResource
 {
     [super printResource];
-    [self printItem:[self.resourceView renderedImage] withName:self.dashboard.resource.resourceLookup.label completion:nil];
+    [self printItem:[self.resourceView renderedImage] withName:self.dashboard.resourceLookup.label completion:nil];
 }
 
 #pragma mark - Custom Accessors
@@ -362,6 +364,8 @@ NSString * const kJMDashboardViewerPrimaryWebEnvironmentIdentifier = @"kJMDashbo
 {
     JMMenuActionsViewAction menuActions = [super availableAction] | JMMenuActionsViewAction_Refresh;
 
+    menuActions |= JMMenuActionsViewAction_Save;
+    
     if ([self isExternalScreenAvailable]) {
         menuActions |= [self isContentOnTV] ?  JMMenuActionsViewAction_HideExternalDisplay : JMMenuActionsViewAction_ShowExternalDisplay;
     }
@@ -378,6 +382,10 @@ NSString * const kJMDashboardViewerPrimaryWebEnvironmentIdentifier = @"kJMDashbo
     [super actionsView:view didSelectAction:action];
 
     switch (action) {
+        case JMMenuActionsViewAction_Save: {
+            [self saveDashboard];
+            break;
+        }
         case JMMenuActionsViewAction_Refresh: {
             [self reloadDashboard];
             break;
@@ -403,6 +411,21 @@ NSString * const kJMDashboardViewerPrimaryWebEnvironmentIdentifier = @"kJMDashbo
         }
         default:{break;}
     }
+}
+
+#pragma mark - JMSaveResourceViewControllerDelegate
+- (void)resourceDidSavedSuccessfully
+{
+    [ALToastView toastInView:self.navigationController.view
+                    withText:JMCustomLocalizedString(@"resource_viewer_save_addedToQueue", nil)];
+}
+
+- (void)saveDashboard
+{
+    JMSaveDashboardViewController *saveDashboardVC = [self.storyboard instantiateViewControllerWithIdentifier:@"JMSaveDashboardViewController"];
+    saveDashboardVC.dashboard = self.dashboard;
+    saveDashboardVC.delegate = self;
+    [self.navigationController pushViewController:saveDashboardVC animated:YES];
 }
 
 #pragma mark - JMDashboardLoaderDelegate
@@ -536,7 +559,7 @@ NSString * const kJMDashboardViewerPrimaryWebEnvironmentIdentifier = @"kJMDashbo
                                                   // Get components
                                                   NSArray <JSDashboardComponent *> *components = result.objects;
 
-                                                  NSMutableArray <JSParameter *> *parameters = [NSMutableArray array];
+                                                  NSMutableArray <JSDashboardParameter *> *parameters = [NSMutableArray array];
                                                   for (JSDashboardComponent *component in components) {
                                                       if ([component.type isEqualToString:@"inputControl"]) {
                                                           NSString *URI = component.ownerResourceURI;
@@ -545,9 +568,9 @@ NSString * const kJMDashboardViewerPrimaryWebEnvironmentIdentifier = @"kJMDashbo
                                                               URI = [URI stringByReplacingOccurrencesOfString:@"/temp" withString:dashboardFilesURI];
                                                           }
                                                           NSPredicate *filterPredicate = [NSPredicate predicateWithFormat:@"SELF.name == %@", URI];
-                                                          JSParameter *parameter = [[parameters filteredArrayUsingPredicate:filterPredicate] lastObject];
+                                                          JSDashboardParameter *parameter = [[parameters filteredArrayUsingPredicate:filterPredicate] lastObject];
                                                           if (!parameter) {
-                                                              parameter = [JSParameter parameterWithName:URI value:[NSMutableArray array]];
+                                                              parameter = [JSDashboardParameter parameterWithName:URI value:[NSMutableArray array]];
                                                               [parameters addObject:parameter];
                                                           }
                                                           [parameter.value addObject:component.ownerResourceParameterName];

@@ -143,7 +143,7 @@ NSString * const kJMResourceViewerWebEnvironmentIdentifier = @"kJMResourceViewer
     JMMenuActionsViewAction availableActions = [super availableAction];
     availableActions |= JMMenuActionsViewAction_Share;
 
-    BOOL isSaveReport = self.resource.type == JMResourceTypeSavedResource;
+    BOOL isSaveReport = self.resource.type == JMResourceTypeSavedReport;
     BOOL isFile = self.resource.type == JMResourceTypeFile;
     if ( !(isSaveReport || isFile) ) {
         availableActions |= JMMenuActionsViewAction_Print;

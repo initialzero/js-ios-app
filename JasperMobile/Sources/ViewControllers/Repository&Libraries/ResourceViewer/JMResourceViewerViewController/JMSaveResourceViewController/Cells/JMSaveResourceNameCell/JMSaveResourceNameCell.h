@@ -22,7 +22,7 @@
 
 
 //
-//  JMSaveReportNameCell.h
+//  JMSaveResourceNameCell.h
 //  TIBCO JasperMobile
 //
 
@@ -35,15 +35,15 @@
 
 #import "JMTextField.h"
 
-@protocol JMSaveReportNameCellDelegate;
+@protocol JMSaveResourceNameCellDelegate;
 
-@interface JMSaveReportNameCell : UITableViewCell <UITextFieldDelegate>
+@interface JMSaveResourceNameCell : UITableViewCell <UITextFieldDelegate>
 @property (nonatomic, weak) IBOutlet JMTextField *textField;
 @property (nonatomic, weak) IBOutlet UILabel *errorLabel;
-@property (nonatomic, weak) id<JMSaveReportNameCellDelegate>cellDelegate;
+@property (nonatomic, weak) id<JMSaveResourceNameCellDelegate>cellDelegate;
 @end
 
-@protocol JMSaveReportNameCellDelegate <NSObject>
+@protocol JMSaveResourceNameCellDelegate <NSObject>
 @optional
-- (void)nameCell:(JMSaveReportNameCell *)cell didChangeReportName:(NSString *)reportName;
+- (void)nameCell:(JMSaveResourceNameCell *)cell didChangeResourceName:(NSString *)resourceName;
 @end

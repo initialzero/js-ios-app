@@ -101,7 +101,7 @@
                                                                                                             NSString *errorMessage = nil;
                                                                                                             __strong typeof(self) strongSelf = weakSelf;
                                                                                                             if (strongSelf) {
-                                                                                                                [JMUtils validateReportName:text errorMessage:&errorMessage];
+                                                                                                                [JMUtils validateResourceName:text errorMessage:&errorMessage];
                                                                                                                 if (!errorMessage && ![strongSelf isUniqueNewReportOptionName:text]) {
                                                                                                                     errorMessage = JMCustomLocalizedString(@"report_viewer_report_options_new_option_title_alreadyexist", nil);
                                                                                                                 }

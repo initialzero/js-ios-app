@@ -22,43 +22,41 @@
 
 
 //
-//  JMExportTask.m
+//  JMSaveDashboardViewController.m
 //  TIBCO JasperMobile
 //
 
-#import "JMExportTask.h"
-#import "JMSavedResources+Helpers.h"
+#import "JMSaveDashboardViewController.h"
+#import "JMDashboardExportTask.h"
+#import "JMExportManager.h"
 
-@interface JMExportTask ()
-@property (nonatomic, strong, readwrite) JMExportResource *exportResource;
 
-@end
+@implementation JMSaveDashboardViewController
 
-@implementation JMExportTask
-
-#pragma mark - Life Cycle
-- (void)dealloc
+- (void)viewDidLoad
 {
-    JMLog(@"%@ - %@", NSStringFromClass(self.class), NSStringFromSelector(_cmd));
+    [super viewDidLoad];
+    self.title = [JMCustomLocalizedString(@"resource_viewer_save_title", nil) capitalizedString];
+    self.resourceName = self.dashboard.resourceLookup.label;
 }
 
-- (instancetype)initWithResource:(JMExportResource *)resource
+- (JMResourceType)resourceType
 {
-    self = [super init];
-    if (self) {
-        self.exportResource = resource;
-    }
-    return self;
+    return [JMResource typeForResourceLookupType:self.dashboard.resourceLookup.resourceType];
 }
 
-+ (instancetype)taskWithResource:(JMExportResource *)resource
+
+-(NSArray *)availableFormats
 {
-    return [[self alloc] initWithResource:resource];
+    return [JMUtils supportedFormatsForDashboardSaving];
 }
 
-- (NSString *)description
+- (void) saveResource
 {
-    return [NSString stringWithFormat:@"<%@: Export %@ in format %@>", [self class], self.name, self.exportResource.format];
+    JMDashboardExportTask *task = [[JMDashboardExportTask alloc] initWithDashboard:self.dashboard name:self.resourceName format:self.selectedFormat];
+    [[JMExportManager sharedInstance] addExportTask:task];
+    
+    [super saveResource];
 }
 
 @end

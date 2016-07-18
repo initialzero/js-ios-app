@@ -32,19 +32,13 @@
  @since 2.0
  */
 
-@class JMResource;
+#import "JSDashboard.h"
 
-@interface JMDashboard : NSObject
+@interface JMDashboard : JSDashboard
 // getters
-@property (nonatomic, strong, readonly) JMResource *resource;
-@property (nonatomic, copy, readonly) NSString *resourceURI;
 @property (nonatomic, strong, readonly) NSURLRequest *resourceRequest;
-@property (nonatomic, copy) NSArray <JSInputControlDescriptor *>*inputControls;
 @property (nonatomic, copy) NSArray <JSDashboardComponent *>*components;
 @property (nonatomic, weak) JSDashboardComponent *maximizedComponent;
-
-- (instancetype)initWithResource:(JMResource *)resource;
-+ (instancetype)dashboardWithResource:(JMResource *)resource;
 
 - (void)updateResourceRequest;
 @end

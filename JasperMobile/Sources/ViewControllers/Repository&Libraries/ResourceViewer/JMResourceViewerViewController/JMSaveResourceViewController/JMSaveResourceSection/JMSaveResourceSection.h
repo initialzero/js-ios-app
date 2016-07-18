@@ -22,33 +22,26 @@
 
 
 //
-//  JMSaveReportPagesCell.h
+//  JMSaveResourceSection.h
 //  TIBCO JasperMobile
 //
 
 /**
  @author Alexey Gubarev ogubarie@tibco.com
- 
- @since 2.1
- */
+ @author Aleksandr Dakhno odahno@tibco.com
 
-#import <UIKit/UIKit.h>
+ @since 1.9.1
+*/
 
-typedef NS_ENUM(NSInteger, JMSaveReportPagesType) {
-    JMSaveReportPagesType_All = 0,
-    JMSaveReportPagesType_Range
+typedef NS_ENUM(NSInteger, JMSaveResourceSectionType) {
+    JMSaveResourceSectionTypeName,
+    JMSaveResourceSectionTypeFormat,
+    JMSaveResourceSectionTypePageRange
 };
 
-@class JMSaveReportPagesCell;
-@protocol JMSaveReportPagesCellDelegate <NSObject>
-@required
-- (void)pagesCell:(JMSaveReportPagesCell *)pagesCell didChangedPagesType:(JMSaveReportPagesType)pagesType;
-
-@end
-
-@interface JMSaveReportPagesCell : UITableViewCell
-@property (nonatomic, weak) IBOutlet UILabel *titleLabel;
-@property (nonatomic, assign) JMSaveReportPagesType pagesType;
-@property (nonatomic, weak) id <JMSaveReportPagesCellDelegate> cellDelegate;
-
+@interface JMSaveResourceSection : NSObject
+@property (nonatomic, assign) JMSaveResourceSectionType sectionType;
+@property (nonatomic, copy) NSString *title;
+- (instancetype)initWithSectionType:(JMSaveResourceSectionType)sectionType title:(NSString *)title;
++ (JMSaveResourceSection *)sectionWithType:(JMSaveResourceSectionType)sectionType title:(NSString *)title;
 @end

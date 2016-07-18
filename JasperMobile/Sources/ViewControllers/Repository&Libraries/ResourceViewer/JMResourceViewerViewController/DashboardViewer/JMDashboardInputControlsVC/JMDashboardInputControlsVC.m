@@ -239,12 +239,12 @@
     NSMutableArray *parametersArray = [NSMutableArray array];
     for (JSInputControlDescriptor *inputControlDescriptor in self.chagedInputControls) {
 
-        JSReportParameter *reportParameter = [[JSReportParameter alloc] initWithName:inputControlDescriptor.uuid
+        JSDashboardParameter *dashboardParameter = [[JSDashboardParameter alloc] initWithName:inputControlDescriptor.uuid
                                                                                value:inputControlDescriptor.selectedValues];
 
         NSString *URI = [inputControlDescriptor.uri stringByReplacingOccurrencesOfString:@"repo:" withString:@""];
         
-        JSParameter *parameter = [JSParameter parameterWithName:URI value:@[reportParameter]];
+        JSParameter *parameter = [JSParameter parameterWithName:URI value:@[dashboardParameter]];
         [parametersArray addObject:parameter];
     }
     

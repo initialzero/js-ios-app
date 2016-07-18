@@ -78,12 +78,15 @@ extern NSString * const kJMDemoServerPassword;
 extern NSString * const kFeedbackPrimaryEmail;
 extern NSString * const kFeedbackSecondaryEmail;
 
-// Report directory
+// Resource directory
 extern NSString * const kJMReportsDirectory;
+extern NSString * const kJMDashboardsDirectory;
 
 // Saved Items ws types
 extern NSString * const kJMSavedReportUnit;
+extern NSString * const kJMSavedDashboard;
 extern NSString * const kJMTempExportedReportUnit;
+extern NSString * const kJMTempExportedDashboard;
 
 // Schedules Items
 extern NSString * const kJMScheduleUnit;

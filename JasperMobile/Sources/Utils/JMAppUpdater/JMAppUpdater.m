@@ -31,7 +31,7 @@
 #import "JMServerProfile+Helpers.h"
 #import "JMSavedResources+Helpers.h"
 #import "JMFavorites+Helpers.h"
-#import "JMResource.h"
+#import "JMExportResource.h"
 
 // Old constants used in previous versions of application
 static NSString * const kJMDefaultsUpdatedVersions = @"jaspersoft.mobile.updated.versions";
@@ -139,14 +139,14 @@ static NSString * const kJMDefaultsUpdatedVersions = @"jaspersoft.mobile.updated
             NSString *reportName = [report stringByReplacingOccurrencesOfString:reportExtension withString:@""];
             
             JSResourceLookup *resourceLookup = [JSResourceLookup new];
+            resourceLookup.label = reportName;
             resourceLookup.resourceType = kJS_WS_TYPE_REPORT_UNIT;
             resourceLookup.version = @(0);
-            JMResource *resource = [JMResource resourceWithResourceLookup:resourceLookup];
+            JMExportResource *resource = [JMExportResource resourceWithResourceLookup:resourceLookup];
+            resource.format = [reportExtension stringByReplacingOccurrencesOfString:@"." withString:@""];
             NSURL *reportSourcesURL = [NSURL fileURLWithPath:[reportsDirectory stringByAppendingPathComponent:report] isDirectory:YES];
-            [JMSavedResources addReport:resource
-                               withName:reportName
-                                 format:[reportExtension stringByReplacingOccurrencesOfString:@"." withString:@""]
-                             sourcesURL:reportSourcesURL];
+            [JMSavedResources addResource:resource
+                               sourcesURL:reportSourcesURL];
         }
     }
 
@@ -200,12 +200,12 @@ static NSString * const kJMDefaultsUpdatedVersions = @"jaspersoft.mobile.updated
     NSArray *savedItems = [JMSavedResources allSavedItems];
     for (JMSavedResources *savedResource in savedItems) {
         // 1. get old path
-        NSString *oldPath = [JMSavedResources oldPathForSavedReport:savedResource];
+        NSString *oldPath = [JMSavedResources oldPathForSavedResource:savedResource];
         NSString *oldURI = savedResource.uri;
 
         // 2. create new path
         NSString *documentPath = [JMUtils applicationDocumentsDirectory];
-        NSString *newURI = [JMSavedResources newURIForSavedReport:savedResource];
+        NSString *newURI = [JMSavedResources newURIForSavedResource:savedResource];
         NSString *newPath = [documentPath stringByAppendingPathComponent:newURI];
 
         // 3. move from old path to new path

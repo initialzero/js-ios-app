@@ -28,32 +28,22 @@
 
 #import "JMDashboard.h"
 #import "JMDashboardParameter.h"
-#import "JMResource.h"
 
 @interface JMDashboard()
 // setters
-@property (nonatomic, strong, readwrite) JMResource *resource;
-@property (nonatomic, copy, readwrite) NSString *resourceURI;
 @property (nonatomic, strong, readwrite) NSURLRequest *resourceRequest;
 @end
 
 @implementation JMDashboard
 
 #pragma mark - LifyCycle
-- (instancetype)initWithResource:(JMResource *)resource
+- (instancetype)initWithResourceLookup:(JSResourceLookup *)resource
 {
-    self = [super init];
+    self = [super initWithResourceLookup:resource];
     if (self) {
-        _resource = resource;
-        _resourceURI = resource.resourceLookup.uri;
         _resourceRequest = [self createResourceRequest];
     }
     return self;
-}
-
-+ (instancetype)dashboardWithResource:(JMResource *)resourceLookup
-{
-    return [[self alloc] initWithResource:resourceLookup];
 }
 
 #pragma mark - Public API
@@ -63,7 +53,7 @@
 #pragma mark - Helpers
 - (NSURLRequest *)createResourceRequest
 {
-    NSString *dashboardUrl = [NSString stringWithFormat:@"flow.html?_flowId=dashboardRuntimeFlow&viewAsDashboardFrame=true&dashboardResource=%@", _resourceURI];
+    NSString *dashboardUrl = [NSString stringWithFormat:@"flow.html?_flowId=dashboardRuntimeFlow&viewAsDashboardFrame=true&dashboardResource=%@", self.resourceURI];
     dashboardUrl = [dashboardUrl stringByAppendingString:@"&"];
     dashboardUrl = [[NSURL URLWithString:dashboardUrl relativeToURL:self.restClient.baseURL] absoluteString];
     

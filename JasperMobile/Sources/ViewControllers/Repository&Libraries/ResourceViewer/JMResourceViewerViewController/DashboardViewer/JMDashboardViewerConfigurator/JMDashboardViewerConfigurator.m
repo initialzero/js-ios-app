@@ -53,7 +53,7 @@
     self = [super init];
     if (self) {
         _dashboard = dashboard;
-        if ([JMUtils isSupportVisualize] && self.dashboard.resource.type == JMResourceTypeDashboard) {
+        if ([JMUtils isSupportVisualize] && [JMResource typeForResourceLookupType:self.dashboard.resourceLookup.resourceType] == JMResourceTypeDashboard) {
             _dashboardLoader = [JMVisDashboardLoader loaderWithDashboard:self.dashboard
                                                           webEnvironment:webEnvironment];
             ((JMVisDashboardLoader *)_dashboardLoader).visualizeManager.viewportScaleFactor = self.viewportScaleFactor;

@@ -25,7 +25,7 @@
 #import "JMReportViewerConfigurator.h"
 #import "JMJavascriptRequest.h"
 #import "JMWebViewManager.h"
-#import "JMSavingReportViewController.h"
+#import "JMSaveReportViewController.h"
 #import "ALToastView.h"
 #import "JMInputControlsViewController.h"
 #import "JMReportViewerToolBar.h"
@@ -40,7 +40,7 @@ NSString * const kJMReportViewerPrimaryWebEnvironmentIdentifierREST   = @"kJMRep
 NSString * const kJMReportViewerSecondaryWebEnvironmentIdentifierViz  = @"kJMReportViewerSecondaryWebEnvironmentIdentifierViz";
 NSString * const kJMReportViewerSecondaryWebEnvironmentIdentifierREST = @"kJMReportViewerSecondaryWebEnvironmentIdentifierREST";
 
-@interface JMReportViewerVC () <JMSaveReportViewControllerDelegate, JMReportViewerToolBarDelegate, JMReportLoaderDelegate>
+@interface JMReportViewerVC () <JMSaveResourceViewControllerDelegate, JMReportViewerToolBarDelegate, JMReportLoaderDelegate>
 @property (nonatomic, strong) JMReportViewerConfigurator *configurator;
 @property (nonatomic, copy) void(^exportCompletion)(NSString *resourcePath);
 @property (nonatomic, weak) JMReportViewerToolBar *toolbar;
@@ -93,16 +93,6 @@ NSString * const kJMReportViewerSecondaryWebEnvironmentIdentifierREST = @"kJMRep
     [super viewWillDisappear:animated];
 
     [_toolbar removeFromSuperview];
-}
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    [super prepareForSegue:segue sender:sender];
-    if ([segue.identifier isEqualToString:kJMSaveReportViewControllerSegue]) {
-        JMSavingReportViewController *destinationViewController = segue.destinationViewController;
-        destinationViewController.report = self.report;
-        destinationViewController.delegate = self;
-    }
 }
 
 #pragma mark - Observe Notifications
@@ -747,8 +737,7 @@ NSString * const kJMReportViewerSecondaryWebEnvironmentIdentifierREST = @"kJMRep
             break;
         }
         case JMMenuActionsViewAction_Save:
-            // TODO: change save action
-            [self performSegueWithIdentifier:kJMSaveReportViewControllerSegue sender:nil];
+            [self saveReport];
             break;
         case JMMenuActionsViewAction_Schedule: {
             [self scheduleReport];
@@ -777,11 +766,19 @@ NSString * const kJMReportViewerSecondaryWebEnvironmentIdentifierREST = @"kJMRep
     }
 }
 
-#pragma mark - JMSaveReportControllerDelegate
-- (void)reportDidSavedSuccessfully
+#pragma mark - JMSaveResourceControllerDelegate
+- (void)resourceDidSavedSuccessfully
 {
     [ALToastView toastInView:self.navigationController.view
-                    withText:JMCustomLocalizedString(@"report_viewer_save_addedToQueue", nil)];
+                    withText:JMCustomLocalizedString(@"resource_viewer_save_addedToQueue", nil)];
+}
+
+- (void)saveReport
+{
+    JMSaveReportViewController *saveReportVC = [self.storyboard instantiateViewControllerWithIdentifier:@"JMSaveReportViewController"];
+    saveReportVC.report = self.report;
+    saveReportVC.delegate = self;
+    [self.navigationController pushViewController:saveReportVC animated:YES];
 }
 
 #pragma mark - Input Controls

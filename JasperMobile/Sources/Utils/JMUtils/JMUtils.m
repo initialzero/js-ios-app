@@ -60,16 +60,16 @@ void jmDebugLog(NSString *format, ...) {
 #define kJMNameMax 250
 #define kJMInvalidCharacters     @"~!#$%^`@&*()-+={}[]:;\"'<>,?/|\\"
 
-+ (BOOL)validateReportName:(NSString *)reportName errorMessage:(NSString **)errorMessage
++ (BOOL)validateResourceName:(NSString *)resourceName errorMessage:(NSString *__autoreleasing  _Nullable *)errorMessage
 {
     NSCharacterSet *characterSet = [NSCharacterSet characterSetWithCharactersInString:kJMInvalidCharacters];
-    reportName = [reportName stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-    if (reportName.length < kJMNameMin) {
-        *errorMessage = JMCustomLocalizedString(@"report_viewer_save_name_errmsg_empty", nil);
-    } else if (reportName.length > kJMNameMax) {
-        *errorMessage = [NSString stringWithFormat:JMCustomLocalizedString(@"report_viewer_save_name_errmsg_maxlength", nil), kJMNameMax];
-    } else if ([reportName rangeOfCharacterFromSet:characterSet].location != NSNotFound) {
-        *errorMessage = [NSString stringWithFormat:JMCustomLocalizedString(@"report_viewer_save_name_errmsg_characters", nil), kJMInvalidCharacters];
+    resourceName = [resourceName stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    if (resourceName.length < kJMNameMin) {
+        *errorMessage = JMCustomLocalizedString(@"resource_viewer_save_name_errmsg_empty", nil);
+    } else if (resourceName.length > kJMNameMax) {
+        *errorMessage = [NSString stringWithFormat:JMCustomLocalizedString(@"resource_viewer_save_name_errmsg_maxlength", nil), kJMNameMax];
+    } else if ([resourceName rangeOfCharacterFromSet:characterSet].location != NSNotFound) {
+        *errorMessage = [NSString stringWithFormat:JMCustomLocalizedString(@"resource_viewer_save_name_errmsg_characters", nil), kJMInvalidCharacters];
     }
     return [*errorMessage length] == 0;
 }
@@ -159,6 +159,18 @@ void jmDebugLog(NSString *format, ...) {
                            ];
     }
     return reportFormats;
+}
+
++ (NSArray *)supportedFormatsForDashboardSaving
+{
+    static NSArray *dashboardFormats;
+    if (!dashboardFormats) {
+        dashboardFormats = @[
+                          kJS_CONTENT_TYPE_PDF,
+                          kJS_CONTENT_TYPE_PNG,
+                          ];
+    }
+    return dashboardFormats;
 }
 
 + (NSString *)buildVersion

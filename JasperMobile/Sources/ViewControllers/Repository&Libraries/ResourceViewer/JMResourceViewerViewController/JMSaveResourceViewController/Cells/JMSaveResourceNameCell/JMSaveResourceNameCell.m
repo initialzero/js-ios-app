@@ -22,31 +22,37 @@
 
 
 //
-//  JMSaveReportPageRangeCell.m
+//  JMSaveResourceNameCell.m
 //  TIBCO JasperMobile
 //
 
 /**
- @author Alexey Gubarev ogubarie@tibco.com
- @author Aleksandr Dakhno odahno@tibco.com
-
- @since 1.9.1
+@since 1.9.1
 */
 
+#import "JMSaveResourceNameCell.h"
 
-@protocol JMSaveReportPageRangeCellDelegate;
+@implementation JMSaveResourceNameCell
 
-@interface JMSaveReportPageRangeCell : UITableViewCell
-@property (nonatomic, weak) IBOutlet UILabel *titleLabel;
-@property (nonatomic, assign) NSInteger currentPage;
-@property (nonatomic, assign) BOOL editable;
-@property (nonatomic, weak) id<JMSaveReportPageRangeCellDelegate> cellDelegate;
-@end
+- (void)awakeFromNib
+{
+    self.errorLabel.font = [[JMThemesManager sharedManager] tableViewCellErrorFont];
+    self.errorLabel.textColor = [[JMThemesManager sharedManager] tableViewCellErrorColor];
+    self.textField.placeholder = JMCustomLocalizedString(@"resource_viewer_save_name", nil);
+}
 
-@protocol JMSaveReportPageRangeCellDelegate <NSObject>
-@required
-- (NSRange)availableRangeForPageRangeCell:(JMSaveReportPageRangeCell *)cell;
+#pragma mark - UITextFieldDelegate
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    return NO;
+}
 
-@optional
-- (void)pageRangeCell:(JMSaveReportPageRangeCell *)cell didSelectPage:(NSInteger)page;
+- (void)textFieldDidEndEditing:(UITextField *)textField
+{
+    if ([self.cellDelegate respondsToSelector:@selector(nameCell:didChangeResourceName:)]) {
+        [self.cellDelegate nameCell:self didChangeResourceName:textField.text];
+    }
+}
+
 @end

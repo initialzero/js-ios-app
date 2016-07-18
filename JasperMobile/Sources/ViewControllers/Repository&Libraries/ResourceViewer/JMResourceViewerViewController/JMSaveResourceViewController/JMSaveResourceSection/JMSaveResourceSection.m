@@ -22,18 +22,37 @@
 
 
 //
-//  JMSaveReportFormatCell.h
+//  JMSaveResourceSection.m
 //  TIBCO JasperMobile
 //
 
 /**
- @author Alexey Gubarev ogubarie@tibco.com
- @author Aleksandr Dakhno odahno@tibco.com
-
- @since 1.9.1
+@since 1.9.1
 */
 
-@interface JMSaveReportFormatCell : UITableViewCell
-@property (nonatomic, weak) IBOutlet UILabel *titleLabel;
+#import "JMSaveResourceSection.h"
 
+@implementation JMSaveResourceSection
+
+- (instancetype)init
+{
+    [NSException raise:@"Init with (- (instancetype)initWithSectionType:(JMSaveResourceSectionType)sectionType title:(NSString *)title)"
+                format:@""];
+    return nil;
+}
+
+- (instancetype)initWithSectionType:(JMSaveResourceSectionType)sectionType title:(NSString *)title
+{
+    self = [super init];
+    if (self) {
+        _sectionType = sectionType;
+        _title = title;
+    }
+    return self;
+}
+
++ (JMSaveResourceSection *)sectionWithType:(JMSaveResourceSectionType)sectionType title:(NSString *)title
+{
+    return [[self.class alloc] initWithSectionType:sectionType title:title];
+}
 @end

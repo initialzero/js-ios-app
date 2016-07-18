@@ -73,12 +73,15 @@ NSString * const kFeedbackPrimaryEmail = @"js-dev-mobile@tibco.com";
 NSString * const kFeedbackSecondaryEmail = @"js.testdevice@gmail.com";
 
 
-// Directory to store downloaded reports
+// Directory to store downloaded resources
 NSString * const kJMReportsDirectory = @"reports";
+NSString * const kJMDashboardsDirectory = @"dashboards";
 
 // Saved Items ws types
 NSString * const kJMSavedReportUnit = @"savedReportUnit";
+NSString * const kJMSavedDashboard = @"savedDashboard";
 NSString * const kJMTempExportedReportUnit = @"kJMTempExportedReportUnit";
+NSString * const kJMTempExportedDashboard = @"kJMTempExportedDashboard";
 
 // Schedules Items
 NSString * const kJMScheduleUnit = @"kJMScheduleUnit";

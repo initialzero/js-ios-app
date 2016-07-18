@@ -22,43 +22,31 @@
 
 
 //
-//  JMExportTask.m
+//  JMSaveResourcePageRangeCell.m
 //  TIBCO JasperMobile
 //
 
-#import "JMExportTask.h"
-#import "JMSavedResources+Helpers.h"
+/**
+ @author Alexey Gubarev ogubarie@tibco.com
+ @author Aleksandr Dakhno odahno@tibco.com
 
-@interface JMExportTask ()
-@property (nonatomic, strong, readwrite) JMExportResource *exportResource;
+ @since 1.9.1
+*/
 
+
+@protocol JMSaveResourcePageRangeCellDelegate;
+
+@interface JMSaveResourcePageRangeCell : UITableViewCell
+@property (nonatomic, weak) IBOutlet UILabel *titleLabel;
+@property (nonatomic, assign) NSInteger currentPage;
+@property (nonatomic, assign) BOOL editable;
+@property (nonatomic, weak) id<JMSaveResourcePageRangeCellDelegate> cellDelegate;
 @end
 
-@implementation JMExportTask
+@protocol JMSaveResourcePageRangeCellDelegate <NSObject>
+@required
+- (NSRange)availableRangeForPageRangeCell:(JMSaveResourcePageRangeCell *)cell;
 
-#pragma mark - Life Cycle
-- (void)dealloc
-{
-    JMLog(@"%@ - %@", NSStringFromClass(self.class), NSStringFromSelector(_cmd));
-}
-
-- (instancetype)initWithResource:(JMExportResource *)resource
-{
-    self = [super init];
-    if (self) {
-        self.exportResource = resource;
-    }
-    return self;
-}
-
-+ (instancetype)taskWithResource:(JMExportResource *)resource
-{
-    return [[self alloc] initWithResource:resource];
-}
-
-- (NSString *)description
-{
-    return [NSString stringWithFormat:@"<%@: Export %@ in format %@>", [self class], self.name, self.exportResource.format];
-}
-
+@optional
+- (void)pageRangeCell:(JMSaveResourcePageRangeCell *)cell didSelectPage:(NSInteger)page;
 @end

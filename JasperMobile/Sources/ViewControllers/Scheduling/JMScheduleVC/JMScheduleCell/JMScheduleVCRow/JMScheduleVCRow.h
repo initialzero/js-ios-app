@@ -53,7 +53,7 @@ typedef NS_ENUM(NSInteger, JMScheduleVCRowType) {
     JMScheduleVCRowTypeCalendarSelectedMonths,
     JMScheduleVCRowTypeCalendarEveryDay,  // boolean
     JMScheduleVCRowTypeCalendarSelectedDays,
-    JMScheduleVCRowTypeCalendarDatesInMonth, // TODO: implement in next release
+    JMScheduleVCRowTypeCalendarDatesInMonth,
     JMScheduleVCRowTypeCalendarHours,
     JMScheduleVCRowTypeCalendarMinutes,
     // End Policy (common)

@@ -1,6 +1,6 @@
 
-[[Report Saver view]]
-	[report_viewer_save_title]
+[[Resources Saver view]]
+	[resource_viewer_save_title]
 		en = Save Report
 		de = Bericht speichern
 		fr = Enregistrer le rapport
@@ -10,17 +10,17 @@
 		ja = レポートの保存
 		zh = 保存报表
 		tags = ios
-	[report_viewer_save_name]
-		en = Report name
-		de = Berichtsname
-		fr = Nom du rapport
-		es = Nombre de informe
-		it = Nome report
-		pt = Nome do relatório
-		ja = レポート名
-		zh = 报表名
+	[resource_viewer_save_name]
+		en = Name
+		de = Name
+		fr = Nom
+		es = Nombre
+		it = Nome
+		pt = Nome
+		ja = 名前
+		zh = 名
 		tags = ios
-	[report_viewer_save_format]
+	[resource_viewer_save_format]
 		en = Output format
 		de = Ausgabeformat
 		fr = Format de sortie
@@ -30,7 +30,7 @@
 		ja = 出力フォーマット
 		zh = 输出格式
 		tags = ios
-	[report_viewer_save_pages]
+	[resource_viewer_save_pages]
 		en = Pages
 		de = Seitenbereich
 		fr = Plage de pages
@@ -40,7 +40,7 @@
 		ja = ページ範囲
 		zh = 页面范围
 		tags = ios
-	[report_viewer_save_pages_all]
+	[resource_viewer_save_pages_all]
 		en = All
 		de = Alle
 		fr = Tout
@@ -50,7 +50,7 @@
 		ja = すべて
 		zh = 全部
 		tags = ios
-	[report_viewer_save_pages_range_fromPage]
+	[resource_viewer_save_pages_range_fromPage]
 		en = From page:
 		de = Von Seite:
 		fr = De la page :
@@ -60,7 +60,7 @@
 		ja = 開始ページ:
 		zh = 超始页面:
 		tags = ios
-	[report_viewer_save_pages_range_toPage]
+	[resource_viewer_save_pages_range_toPage]
 		en = To page:
 		de = Bis Seite:
 		fr = À la page :
@@ -70,7 +70,7 @@
 		ja = 終了ページ:
 		zh = 截止页面:
 		tags = ios
-	[report_viewer_save_saved]
+	[resource_viewer_save_saved]
 		en = The report was saved successfully.
 		de = Der Bericht wurde erfolgreich gespeichert.
 		fr = Le rapport a été enregistré avec succès.
@@ -80,7 +80,7 @@
 		ja = レポートは正常に保存されました。
 		zh = 已成功保存报表。
 		tags = ios
-	[report_viewer_save_addedToQueue]
+	[resource_viewer_save_addedToQueue]
 		en = The report is being saved.
 		de = Der Bericht wurde in die Warteschlange eingereiht.
 		es = El informe se añadió a la cola.
@@ -90,7 +90,7 @@
 		pt = O relatório foi adicionado à fila
 		zh = 该报告已加入队列。
 		tags = ios
-	[report_viewer_save_name_errmsg_empty]
+	[resource_viewer_save_name_errmsg_empty]
 		en = This field is required.
 		de = Dieses Feld ist erforderlich.
 		fr = Ce champ est obligatoire.
@@ -100,7 +100,7 @@
 		ja = このフィールドは必須です。
 		zh = 此字段为必填字段。
 		tags = ios
-	[report_viewer_save_name_errmsg_notunique]
+	[resource_viewer_save_name_errmsg_notunique]
 		en = This name already exists, choose a unique name.
 		de = Dieser Name ist bereits vorhanden. Wählen Sie einen eindeutigen Namen aus.
 		fr = Ce nom existe déjà, choisissez un nom unique.
@@ -110,7 +110,7 @@
 		ja = この名前は既に存在しています。一意の名前を選択してください。
 		zh = 此名称已存在，选择一个唯一的名称。
 		tags = ios
-	[report_viewer_save_name_errmsg_notunique_rewrite]
+	[resource_viewer_save_name_errmsg_notunique_rewrite]
 		en = This name already exists, do you want to overwrite it?
 		de = Dieser Name ist bereits vorhanden. Möchten Sie ihn überschreiben?
 		fr = Ce nom existe déjà, voulez-vous le remplacer ?
@@ -120,7 +120,7 @@
 		ja = この名前は既に存在しています。上書きしますか?
 		zh = 此名称已存在，是否要覆盖?
 		tags = ios
-	[report_viewer_save_name_errmsg_maxlength]
+	[resource_viewer_save_name_errmsg_maxlength]
 		en = Must be less than %i characters.
 		de = Muss kürzer als %i Zeichen sein.
 		fr = Doit contenir moins de %i caractères.
@@ -130,7 +130,7 @@
 		ja = %i 文字を超えないようにしてください。
 		zh = 必须少于 %i 个字符。
 		tags = ios
-	[report_viewer_save_name_errmsg_characters]
+	[resource_viewer_save_name_errmsg_characters]
 		en = Characters %@ are not allowed.
 		de = Die Zeichen %@ sind nicht zulässig.
 		fr = Les caractères %@ ne sont pas autorisés.
@@ -140,7 +140,7 @@
 		ja = 文字 %@ は使用できません。
 		zh = 不允许使用字符 %@。
 		tags = ios
-	[report_viewer_save_saving_status_title]
+	[resource_viewer_save_saving_status_title]
 		en = Saving report...
 		de = Bericht speichern...
 		fr = Enregistrement du rapport...
@@ -150,7 +150,7 @@
 		ja = レポートを保存しています...
 		zh = 正在保存报表...
 		tags = ios,unused
-	[report_viewer_save_name_errmsg_tooBigRange]
+	[resource_viewer_save_name_errmsg_tooBigRange]
 		en = Can't save report of more than %@ pages in HTML format. Would you like to save it in PDF format?
 		de = Bericht mit mehr als %@ Seiten im HTML-Format konnte nicht gespeichert werden. Möchten Sie ihn im PDF-Format speichern?
 		fr = Impossible d'enregistrer un rapport de plus de %@ pages en format HTML. Voulez-vous l'enregistrer en format PDF ?

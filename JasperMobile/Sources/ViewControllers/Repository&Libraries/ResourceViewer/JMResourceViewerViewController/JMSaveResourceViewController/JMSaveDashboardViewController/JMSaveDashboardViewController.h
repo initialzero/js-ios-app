@@ -22,37 +22,20 @@
 
 
 //
-//  JMSaveReportNameCell.m
+//  JMSaveDashboardViewController.h
 //  TIBCO JasperMobile
 //
 
 /**
-@since 1.9.1
-*/
+ @author Alexey Gubarev ogubarie@tibco.com
+ 
+ @since 2.6
+ */
 
-#import "JMSaveReportNameCell.h"
+#import "JMSaveResourceViewController.h"
+#import "JMDashboard.h"
 
-@implementation JMSaveReportNameCell
-
-- (void)awakeFromNib
-{
-    self.errorLabel.font = [[JMThemesManager sharedManager] tableViewCellErrorFont];
-    self.errorLabel.textColor = [[JMThemesManager sharedManager] tableViewCellErrorColor];
-    self.textField.placeholder = JMCustomLocalizedString(@"report_viewer_save_name", nil);
-}
-
-#pragma mark - UITextFieldDelegate
-- (BOOL)textFieldShouldReturn:(UITextField *)textField
-{
-    [textField resignFirstResponder];
-    return NO;
-}
-
-- (void)textFieldDidEndEditing:(UITextField *)textField
-{
-    if ([self.cellDelegate respondsToSelector:@selector(nameCell:didChangeReportName:)]) {
-        [self.cellDelegate nameCell:self didChangeReportName:textField.text];
-    }
-}
+@interface JMSaveDashboardViewController : JMSaveResourceViewController
+@property (nonatomic, strong) JMDashboard *dashboard;
 
 @end

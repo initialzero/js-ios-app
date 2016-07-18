@@ -496,7 +496,7 @@ NSString * const kJMRepresentationTypeDidChangeNotification = @"JMRepresentation
         // TODO: add canceling task
 //        [[JMExportManager sharedInstance] cancelAll];
 //        JMResourceCollectionViewCell *cell = (JMResourceCollectionViewCell *) [((JMBaseCollectionView *) self.view).collectionView cellForItemAtIndexPath:indexPath];
-//        JMSavedResources *savedReport = [JMSavedResources savedReportsFromResourceLookup:cell.resourceLookup];
+//        JMSavedResources *savedReport = [JMSavedResources savedResourceFromResourceLookup:cell.resourceLookup];
 //        [[JMExportManager sharedInstance] cancelTaskForSavedResource:savedReport];
     } else {
         void (^configureNextVCBlock)(void) = ^{

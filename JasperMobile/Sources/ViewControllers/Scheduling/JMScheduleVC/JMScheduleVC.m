@@ -38,17 +38,6 @@
 #import "ALToastView.h"
 #import "JMResource.h"
 
-NSString *const kJMJobLabel              = @"kJMJobLabel";
-NSString *const kJMJobDescription        = @"kJMJobDescription";
-NSString *const kJMJobOutputFileURI      = @"kJMJobOutputFileURI";
-NSString *const kJMJobOutputFolderURI    = @"kJMJobOutputFolderURI";
-NSString *const kJMJobFormat             = @"kJMJobFormat";
-NSString *const kJMJobStartDate          = @"kJMJobStartDate";
-NSString *const kJMJobStartImmediately   = @"kJMJobStartImmediately";
-NSString *const kJMJobRepeatType         = @"kJMJobRepeatType";
-NSString *const kJMJobRepeatCount        = @"kJMJobRepeatCount";
-NSString *const kJMJobRepeatTimeInterval = @"kJMJobRepeatTimeInterval";
-
 @interface JMScheduleVC () <UITableViewDataSource, UITableViewDelegate, JMScheduleCellDelegate, JMScheduleBoolenCellDelegate>
 @property (nonatomic, strong, readwrite) JSScheduleMetadata *scheduleMetadata;
 @property (assign, nonatomic) BOOL isNewScheduleMetadata;

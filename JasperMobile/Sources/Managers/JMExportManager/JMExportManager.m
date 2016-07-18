@@ -29,7 +29,7 @@
 #import "JMExportManager.h"
 #import "JMExportTask.h"
 #import "JSReportSaver.h"
-#import "JMSaveReportPagesCell.h"
+#import "JMSaveResourcePagesCell.h"
 #import "JMSavedResources+Helpers.h"
 
 @interface JMExportManager()

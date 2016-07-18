@@ -22,7 +22,7 @@
 
 
 //
-//  JMSaveReportFormatCell.m
+//  JMSaveResourceFormatCell.m
 //  TIBCO JasperMobile
 //
 
@@ -30,9 +30,9 @@
 @since 1.9.1
 */
 
-#import "JMSaveReportFormatCell.h"
+#import "JMSaveResourceFormatCell.h"
 
-@implementation JMSaveReportFormatCell
+@implementation JMSaveResourceFormatCell
 - (void)awakeFromNib
 {
     [super awakeFromNib];

@@ -43,8 +43,9 @@
 
 - (instancetype)initWithReport:(JSReport *)report name:(NSString *)name format:(NSString *)format pages:(JSReportPagesRange *)pagesRange
 {
-    JMResource *resource = [JMResource resourceWithResourceLookup:report.resourceLookup];
-    self = [super initWithResource:resource name:name format:format];
+    JMExportResource *resource = [JMExportResource resourceWithResourceLookup:report.resourceLookup format:format];
+    resource.resourceLookup.label = name;
+    self = [super initWithResource:resource];
     if(self) {
         _pagesRange = pagesRange;
         _reportSaver = [[JSReportSaver alloc] initWithReport:report restClient:self.restClient];
@@ -79,7 +80,7 @@
 - (void)main
 {
     __weak typeof(self) weakSelf = self;
-    [self.reportSaver saveReportWithName:self.name
+    [self.reportSaver saveReportWithName:self.exportResource.resourceLookup.label
                                   format:self.exportResource.format
                               pagesRange:self.pagesRange
                               completion:^(NSURL * _Nullable savedReportFolderURL, NSError * _Nullable error) {
@@ -91,7 +92,7 @@
                                           [JMUtils presentAlertControllerWithError:error completion:nil];
                                       }
                                   } else {
-                                      [JMSavedResources addReport:strongSelf.exportResource withName:strongSelf.name format:strongSelf.exportResource.format sourcesURL:savedReportFolderURL];
+                                      [JMSavedResources addResource:strongSelf.exportResource sourcesURL:savedReportFolderURL];
                                   }
                                   [strongSelf completeOperation];
                               }];
@@ -143,13 +144,4 @@
     [self completeOperation];
 }
 
-- (NSString *)resourceTypeForResource
-{
-    return kJMTempExportedReportUnit;
-}
-
-- (NSString *)resourceURIForResourceWithFormat:(NSString *)format
-{
-    return [JMSavedResources uriForSavedReportWithName:self.name format:format];
-}
 @end

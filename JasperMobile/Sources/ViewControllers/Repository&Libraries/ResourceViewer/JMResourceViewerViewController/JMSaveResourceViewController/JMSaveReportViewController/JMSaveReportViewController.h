@@ -22,7 +22,7 @@
 
 
 //
-//  JMSavingReportViewController.h
+//  JMSaveReportViewController.h
 //  TIBCO JasperMobile
 //
 
@@ -33,21 +33,10 @@
  @since 1.9
  */
 
-#import <UIKit/UIKit.h>
-#import "JMEditabledViewController.h"
+#import "JMSaveResourceViewController.h"
 #import "JMReport.h"
 
-@protocol JMSaveReportViewControllerDelegate <NSObject>
-
-@required
-- (void)reportDidSavedSuccessfully;
-
-@end
-
-extern NSString * const kJMSaveReportViewControllerSegue;
-
-@interface JMSavingReportViewController : JMEditabledViewController
-@property (nonatomic, weak) id <JMSaveReportViewControllerDelegate> delegate;
-
+@interface JMSaveReportViewController : JMSaveResourceViewController
 @property (nonatomic, strong) JMReport *report;
+
 @end

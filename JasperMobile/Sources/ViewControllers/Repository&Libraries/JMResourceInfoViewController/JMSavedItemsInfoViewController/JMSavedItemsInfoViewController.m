@@ -55,7 +55,7 @@
 - (JMSavedResources *)savedReports
 {
     if (!_savedReports) {
-        _savedReports = [JMSavedResources savedReportsFromResource:self.resource];
+        _savedReports = [JMSavedResources savedResourceFromResource:self.resource];
     }
     return _savedReports;
 }
@@ -63,7 +63,7 @@
 #pragma mark - Overloaded methods
 - (void)resetResourceProperties
 {
-    self.resource = [self.savedReports wrapperFromSavedReports];
+    self.resource = [self.savedReports wrapperFromSavedResources];
     [super resetResourceProperties];
 }
 
@@ -99,15 +99,15 @@
                                                                                     NSString *errorMessage = nil;
                                                                                     __strong typeof (self) strongSelf = weakSelf;
                                                                                     if (strongSelf) {
-                                                                                        [JMUtils validateReportName:text errorMessage:&errorMessage];
-                                                                                        if (!errorMessage && ![JMSavedResources isAvailableReportName:text format:strongSelf.savedReports.format]) {
-                                                                                            errorMessage = JMCustomLocalizedString(@"report_viewer_save_name_errmsg_notunique", nil);
+                                                                                        [JMUtils validateResourceName:text errorMessage:&errorMessage];
+                                                                                        if (!errorMessage && ![JMSavedResources isAvailableResourceName:text format:strongSelf.savedReports.format resourceType:[JMResource typeForResourceLookupType:strongSelf.savedReports.wsType]]) {
+                                                                                            errorMessage = JMCustomLocalizedString(@"resource_viewer_save_name_errmsg_notunique", nil);
                                                                                         }
                                                                                     }
                                                                                     return errorMessage;
                                                                                 } textEditCompletionHandler:^(NSString * _Nullable text) {
                                                                                     __strong typeof(self) strongSelf = weakSelf;
-                                                                                    if ([strongSelf.savedReports renameReportTo:text]) {
+                                                                                    if ([strongSelf.savedReports renameResourceTo:text]) {
                                                                                         [strongSelf resetResourceProperties];
                                                                                     }
                                                                                 }];
@@ -121,13 +121,13 @@
         __weak typeof(self) weakSelf = self;
         [alertController addActionWithLocalizedTitle:@"dialog_button_ok" style:UIAlertActionStyleDefault handler:^(UIAlertController * _Nonnull controller, UIAlertAction * _Nonnull action) {
             __strong typeof(self) strongSelf = weakSelf;
-            [strongSelf.savedReports removeReport];
+            [strongSelf.savedReports removeResource];
             [strongSelf.navigationController popViewControllerAnimated:YES];
         }];
         [self presentViewController:alertController animated:YES completion:nil];
     } else if (action == JMMenuActionsViewAction_OpenIn){
-        JMSavedResources *savedResources = [JMSavedResources savedReportsFromResource:self.resource];
-        NSString *fullReportPath = [JMSavedResources absolutePathToSavedReport:savedResources];
+        JMSavedResources *savedResources = [JMSavedResources savedResourceFromResource:self.resource];
+        NSString *fullReportPath = [JMSavedResources absolutePathToSavedResource:savedResources];
         
         NSURL *url = [NSURL fileURLWithPath:fullReportPath];
         

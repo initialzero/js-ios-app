@@ -37,4 +37,8 @@
 
 @interface JMExportResource : JMResource
 @property (nonatomic, strong) NSString *format;
+
+- (instancetype)initWithResourceLookup:(JSResourceLookup *)resourceLookup format:(NSString *)format;
++ (instancetype)resourceWithResourceLookup:(JSResourceLookup *)resourceLookup format:(NSString *)format;
+
 @end

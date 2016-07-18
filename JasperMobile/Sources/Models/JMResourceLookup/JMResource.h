@@ -32,11 +32,14 @@
  */
 
 typedef NS_ENUM(NSInteger, JMResourceType) {
+    JMResourceTypeUnknown,
     JMResourceTypeFile,
     JMResourceTypeFolder,
-    JMResourceTypeSavedResource,
+    JMResourceTypeSavedReport,
+    JMResourceTypeSavedDashboard,
     JMResourceTypeReport,
     JMResourceTypeTempExportedReport,
+    JMResourceTypeTempExportedDashboard,
     JMResourceTypeDashboard,
     JMResourceTypeLegacyDashboard,
     JMResourceTypeSchedule
@@ -51,4 +54,7 @@ typedef NS_ENUM(NSInteger, JMResourceType) {
 - (NSString *__nullable)localizedResourceType;
 - (NSString *__nullable)resourceViewerVCIdentifier;
 - (NSString *__nullable)infoVCIdentifier;
+
++ (JMResourceType)typeForResourceLookupType:(nonnull NSString *)resourceLookupType;
+
 @end

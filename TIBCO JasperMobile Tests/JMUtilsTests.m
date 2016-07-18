@@ -29,21 +29,21 @@
 - (void)testThatReportNameCannotBeEmpty {
     NSString *reportName = @"";
     NSString *errorMessage;
-    BOOL isValid = [JMUtils validateReportName:reportName errorMessage:&errorMessage];
+    BOOL isValid = [JMUtils validateResourceName:reportName errorMessage:&errorMessage];
     XCTAssertFalse(isValid);
 }
 
 - (void)testThatReportNameNotContainsWrongSymbols {
     NSString *reportName = @"~!#$%^|`@&*()-+={}[]:;\"'<>,?/|\\";
     NSString *errorMessage;
-    BOOL isValid = [JMUtils validateReportName:reportName errorMessage:&errorMessage];
+    BOOL isValid = [JMUtils validateResourceName:reportName errorMessage:&errorMessage];
     XCTAssertFalse(isValid);
 }
 
 - (void)testThatReportNameCorrectlyValidateForNotEmptyReportNameAndWithoutWrongSymbolsInReportName {
     NSString *reportName = @"ReportName";
     NSString *errorMessage;
-    BOOL isValid = [JMUtils validateReportName:reportName errorMessage:&errorMessage];
+    BOOL isValid = [JMUtils validateResourceName:reportName errorMessage:&errorMessage];
     XCTAssert(isValid);
 }
 

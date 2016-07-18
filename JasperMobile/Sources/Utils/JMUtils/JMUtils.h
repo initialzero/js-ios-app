@@ -44,10 +44,10 @@ void jmDebugLog(NSString * __nonnull format, ...);
 /**
  Validates report name and directory to store report
 
- @param reportName A report name to validate. It needs to be unique, without /: characters, not empty, and less or equals than 250 symbols (last 5 are reserved for extension)
- @return YES if report name is valid, otherwise returns NO
+ @param resourceName A resource name to validate. It needs to be unique, without /: characters, not empty, and less or equals than 250 symbols (last 5 are reserved for extension)
+ @return YES if resource name is valid, otherwise returns NO
  */
-+ (BOOL)validateReportName:(NSString *__nonnull)reportName errorMessage:(NSString *__nullable*__nullable)errorMessage;
++ (BOOL)validateResourceName:(NSString *__nonnull)resourceName errorMessage:(NSString *__nullable*__nullable)errorMessage;
 
 /**
  Returns full path of NSDocumentDirectory directory for NSUserDomainMask domain
@@ -95,6 +95,8 @@ void jmDebugLog(NSString * __nonnull format, ...);
 + (void)activateCrashReportSendingIfNeeded;
 
 + (NSArray  * __nonnull)supportedFormatsForReportSaving;
+
++ (NSArray * __nonnull)supportedFormatsForDashboardSaving;
 
 /**
  Build Version

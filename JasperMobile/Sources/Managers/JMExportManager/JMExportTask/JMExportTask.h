@@ -37,10 +37,7 @@
 @interface JMExportTask : NSOperation
 @property (nonatomic, strong, readonly) JMExportResource *exportResource;
 
-- (instancetype)initWithResource:(JMResource *)resource name:(NSString *)name format:(NSString *)format;
-+ (instancetype)taskWithResource:(JMResource *)resource name:(NSString *)name format:(NSString *)format;
-
-- (NSString *)resourceTypeForResource;
-- (NSString *)resourceURIForResourceWithFormat:(NSString *)format;
+- (instancetype)initWithResource:(JMExportResource *)resource;
++ (instancetype)taskWithResource:(JMExportResource *)resource;
 
 @end

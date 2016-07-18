@@ -32,47 +32,45 @@
  */
 
 #import "JMSavedResources.h"
-
-@class JMExportResource;
-@class JMResource;
+#import "JMExportResource.h"
 
 extern NSString * const kJMSavedResources;
 
 @interface JMSavedResources (Helpers)
 
-// Returns saved report from JMResource
-+ (JMSavedResources *)savedReportsFromResource:(JMResource *)resource;
+// Returns saved resource from JMResource
++ (JMSavedResources *)savedResourceFromResource:(JMResource *)resource;
 
-+ (JMSavedResources *)savedResourceWithReportName:(NSString *)reportName format:(NSString *)reportFormat;
++ (JMSavedResources *)savedResourceWithResourceName:(NSString *)resourceName format:(NSString *)format resourceType:(JMResourceType)resourceType;
 
 // Adds saved resource with path to CoreData
-+ (JMSavedResources *)addReport:(JMResource *)resource withName:(NSString *)name format:(NSString *)format sourcesURL:(NSURL *)sourcesURL;
++ (JMSavedResources *)addResource:(JMExportResource *)resource sourcesURL:(NSURL *)sourcesURL;
 
-// Returns YES if report with name reportName with format reportFormat is absent
-+ (BOOL)isAvailableReportName:(NSString *)reportName format:(NSString *)reportFormat;
+// Returns YES if resource with name resourceName with format format is absent
++ (BOOL)isAvailableResourceName:(NSString *)resourceName format:(NSString *)format resourceType:(JMResourceType)resourceType;
 
 + (NSArray *)allSavedItems;
 
 + (BOOL)migrateSavedItemFromPath:(NSString *)fromPath toPath:(NSString *)toPath;
 
 // Rename saved resource
-- (BOOL)renameReportTo:(NSString *)newName;
+- (BOOL)renameResourceTo:(NSString *)newName;
 
 // Removes saved resource
-- (void)removeReport;
+- (void)removeResource;
 
-// Returns thumbnail image for saved report
+// Returns thumbnail image for saved resource
 - (UIImage *)thumbnailImage;
 
-// Returns wrapper from SavedReports. Wrapper is a JMResource
-- (JMResource *)wrapperFromSavedReports;
+// Returns wrapper from SavedResources. Wrapper is a JMResource
+- (JMResource *)wrapperFromSavedResources;
 
 // paths
-+ (NSString *)uriForSavedReportWithName:(NSString *)name format:(NSString *)format;
++ (NSString *)uriForSavedResourceWithName:(NSString *)name format:(NSString *)format resourceType:(JMResourceType)resourceType;
 
-+ (NSString *)pathToFolderForSavedReport:(JMSavedResources *)savedReport;
-+ (NSString *)absolutePathToSavedReport:(JMSavedResources *)savedReport;
++ (NSString *)pathToFolderForSavedResource:(JMSavedResources *)savedResource;
++ (NSString *)absolutePathToSavedResource:(JMSavedResources *)savedResource;
 
-+ (NSString *)oldPathForSavedReport:(JMSavedResources *)savedResource;
-+ (NSString *)newURIForSavedReport:(JMSavedResources *)savedResource;
++ (NSString *)oldPathForSavedResource:(JMSavedResources *)savedResource;
++ (NSString *)newURIForSavedResource:(JMSavedResources *)savedResource;
 @end

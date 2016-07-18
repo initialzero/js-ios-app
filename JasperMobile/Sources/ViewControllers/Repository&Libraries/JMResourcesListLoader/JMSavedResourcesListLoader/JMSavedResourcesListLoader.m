@@ -53,7 +53,7 @@
     } else {
         NSMutableArray *commonResourcesArray = [NSMutableArray array];
         for(JMSavedResources *savedResource in fetchedObjects) {
-            [commonResourcesArray addObject:[savedResource wrapperFromSavedReports]];
+            [commonResourcesArray addObject:[savedResource wrapperFromSavedResources]];
         }
         
         NSArray *exportedResources = [[[JMExportManager sharedInstance] exportedResources] filteredArrayUsingPredicate:[self predicate]];
