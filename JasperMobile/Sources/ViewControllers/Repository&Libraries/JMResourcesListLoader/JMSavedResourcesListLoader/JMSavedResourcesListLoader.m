@@ -79,11 +79,15 @@
             return [super listItemsWithOption:optionType];
         case JMResourcesListLoaderOptionType_Filter: {
             NSMutableArray *filterOptions = [NSMutableArray array];
+            
+            NSMutableSet *formatsSet = [NSMutableSet setWithArray:[JMUtils supportedFormatsForReportSaving]];
+            [formatsSet addObjectsFromArray:[JMUtils supportedFormatsForDashboardSaving]];
+            NSArray *formatsArray = formatsSet.allObjects;
             JMResourceLoaderOption *filterByAllOption = [JMResourceLoaderOption optionWithTitle:JMCustomLocalizedString(@"resources_filterby_type_all", nil)
-                                                                                          value:[JMUtils supportedFormatsForReportSaving]];
+                                                                                          value:formatsArray];
             [filterOptions addObject:filterByAllOption];
 
-            for (NSString *format in [JMUtils supportedFormatsForReportSaving]) {
+            for (NSString *format in formatsArray) {
                 JMResourceLoaderOption *filterByOption = [JMResourceLoaderOption optionWithTitle:[format uppercaseString]
                                                                                            value:@[format]];
                 [filterOptions addObject:filterByOption];

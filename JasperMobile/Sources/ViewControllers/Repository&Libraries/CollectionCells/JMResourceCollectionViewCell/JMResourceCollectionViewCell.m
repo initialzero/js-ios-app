@@ -122,7 +122,7 @@ NSString * kJMGridResourceCell = @"JMGridResourceCollectionViewCell";
                 resourceImage = [UIImage imageNamed:@"res_type_file_pdf"];
             } else if ([savedReport.format isEqualToString:kJS_CONTENT_TYPE_XLS]) {
                 resourceImage = [UIImage imageNamed:@"res_type_file_xls"];
-            } else if ([savedReport.format isEqualToString:kJS_CONTENT_TYPE_IMG]) {
+            } else if ([savedReport.format isEqualToString:kJS_CONTENT_TYPE_PNG]) {
                 resourceImage = [UIImage imageNamed:@"res_type_file_img"];
             }
         }
@@ -135,7 +135,7 @@ NSString * kJMGridResourceCell = @"JMGridResourceCollectionViewCell";
             resourceImage = [UIImage imageNamed:@"res_type_file_pdf"];
         } else if ([exportResource.format isEqualToString:kJS_CONTENT_TYPE_XLS]) {
             resourceImage = [UIImage imageNamed:@"res_type_file_xls"];
-        } else if ([exportResource.format isEqualToString:kJS_CONTENT_TYPE_IMG]) {
+        } else if ([exportResource.format isEqualToString:kJS_CONTENT_TYPE_PNG]) {
             resourceImage = [UIImage imageNamed:@"res_type_file_img"];
         }
         self.contentView.alpha = 0.5;
