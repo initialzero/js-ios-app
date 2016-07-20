@@ -107,7 +107,6 @@ NSString * kJMGridResourceCell = @"JMGridResourceCollectionViewCell";
                                                failure:nil];
         }
     } else if (self.resource.type == JMResourceTypeSavedReport || self.resource.type == JMResourceTypeSavedDashboard) {
-        JMLog(@"saved items");
 //        JMSavedResources *savedReport = [JMSavedResources savedResourceFromResourceLookup:self.resourceLookup];
 //        self.thumbnailImage = [savedReport thumbnailImage];
 //        resourceImage = [UIImage imageNamed:[NSString stringWithFormat:@"res_type_%@", savedReport.format]];
@@ -194,7 +193,7 @@ NSString * kJMGridResourceCell = @"JMGridResourceCollectionViewCell";
         shouldFitImage = ((resourceImage.size.height > self.resourceImage.frame.size.height) || (resourceImage.size.width > self.resourceImage.frame.size.width));
     }
     self.resourceImage.contentMode = shouldFitImage ? UIViewContentModeScaleAspectFit : UIViewContentModeCenter;
-    if (self.resource.type == JMResourceTypeLegacyDashboard) {
+    if (self.resource.type == JMResourceTypeLegacyDashboard || self.resource.type == JMResourceTypeTempExportedDashboard || self.resource.type == JMResourceTypeSavedDashboard) {
         self.resourceImage.backgroundColor = [UIColor grayColor];
     } else {
         self.resourceImage.backgroundColor = thumbnails ? [UIColor clearColor] : [[JMThemesManager sharedManager] resourceViewResourceCellPreviewBackgroundColor];

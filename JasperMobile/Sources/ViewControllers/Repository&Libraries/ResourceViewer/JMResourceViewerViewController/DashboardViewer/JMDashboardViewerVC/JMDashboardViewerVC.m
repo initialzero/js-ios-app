@@ -95,41 +95,45 @@ NSString * const kJMDashboardViewerPrimaryWebEnvironmentIdentifier = @"kJMDashbo
     // TODO: we don't have events when JIVE is applied to a report.
     [super printResource];
     
-    JSDashboardSaver *dashboardSaver = [[JSDashboardSaver alloc] initWithDashboard:self.dashboard restClient:self.restClient];
-    [JMCancelRequestPopup presentWithMessage:@"status_loading" cancelBlock:^{
-        [dashboardSaver cancel];
-    }];
-    
-    NSString *dashboardName = [[NSUUID UUID] UUIDString];
-    
-    __weak typeof (self) weakSelf = self;
-    [dashboardSaver saveDashboardWithName:dashboardName
-                                   format:kJS_CONTENT_TYPE_PDF
-                               completion:^(NSURL * _Nullable savedDashboardFolderURL, NSError * _Nullable error) {
-                                   [JMCancelRequestPopup dismiss];
-                                   if (error) {
-                                       if (error.code == JSSessionExpiredErrorCode) {
-                                           [JMUtils showLoginViewAnimated:YES completion:nil];
+    if (self.restClient.serverInfo.versionAsFloat < kJS_SERVER_VERSION_CODE_JADE_6_2_0) {
+        [self printItem:[self.resourceView renderedImage] withName:self.dashboard.resourceLookup.label completion:nil];
+    } else {
+        JSDashboardSaver *dashboardSaver = [[JSDashboardSaver alloc] initWithDashboard:self.dashboard restClient:self.restClient];
+        [JMCancelRequestPopup presentWithMessage:@"status_loading" cancelBlock:^{
+            [dashboardSaver cancel];
+        }];
+        
+        NSString *dashboardName = [[NSUUID UUID] UUIDString];
+        
+        __weak typeof (self) weakSelf = self;
+        [dashboardSaver saveDashboardWithName:dashboardName
+                                       format:kJS_CONTENT_TYPE_PDF
+                                   completion:^(NSURL * _Nullable savedDashboardFolderURL, NSError * _Nullable error) {
+                                       [JMCancelRequestPopup dismiss];
+                                       if (error) {
+                                           if (error.code == JSSessionExpiredErrorCode) {
+                                               [JMUtils showLoginViewAnimated:YES completion:nil];
+                                           } else {
+                                               [JMUtils presentAlertControllerWithError:error completion:nil];
+                                           }
                                        } else {
-                                           [JMUtils presentAlertControllerWithError:error completion:nil];
+                                           __strong typeof(self) strongSelf = weakSelf;
+                                           NSString *fullReportName = [dashboardName stringByAppendingPathExtension:kJS_CONTENT_TYPE_PDF];
+                                           NSURL *resourceURL = [savedDashboardFolderURL URLByAppendingPathComponent:fullReportName];
+                                           [strongSelf printItem:resourceURL
+                                                        withName:strongSelf.dashboard.resourceLookup.label
+                                                      completion:^(BOOL completed, NSError *error){
+                                                          NSString *directoryPath = [resourceURL.path stringByDeletingLastPathComponent];
+                                                          if ([[NSFileManager defaultManager] fileExistsAtPath:directoryPath]) {
+                                                              [[NSFileManager defaultManager] removeItemAtPath:directoryPath error:nil];
+                                                          }
+                                                          if(error){
+                                                              JMLog(@"FAILED! due to error in domain %@ with error code %ld", error.domain, (long)error.code);
+                                                          }
+                                                      }];
                                        }
-                                   } else {
-                                       __strong typeof(self) strongSelf = weakSelf;
-                                       NSString *fullReportName = [dashboardName stringByAppendingPathExtension:kJS_CONTENT_TYPE_PDF];
-                                       NSURL *resourceURL = [savedDashboardFolderURL URLByAppendingPathComponent:fullReportName];
-                                       [strongSelf printItem:resourceURL
-                                                    withName:strongSelf.dashboard.resourceLookup.label
-                                                  completion:^(BOOL completed, NSError *error){
-                                                      NSString *directoryPath = [resourceURL.path stringByDeletingLastPathComponent];
-                                                      if ([[NSFileManager defaultManager] fileExistsAtPath:directoryPath]) {
-                                                          [[NSFileManager defaultManager] removeItemAtPath:directoryPath error:nil];
-                                                      }
-                                                      if(error){
-                                                          JMLog(@"FAILED! due to error in domain %@ with error code %ld", error.domain, (long)error.code);
-                                                      }
-                                                  }];
-                                   }
-                               }];
+                                   }];
+    }
 }
 
 #pragma mark - Custom Accessors
@@ -400,9 +404,9 @@ NSString * const kJMDashboardViewerPrimaryWebEnvironmentIdentifier = @"kJMDashbo
 - (JMMenuActionsViewAction)availableAction
 {
     JMMenuActionsViewAction menuActions = [super availableAction] | JMMenuActionsViewAction_Refresh;
-
-    menuActions |= JMMenuActionsViewAction_Save;
-    
+    if (self.restClient.serverInfo.versionAsFloat >= kJS_SERVER_VERSION_CODE_JADE_6_2_0) {
+        menuActions |= JMMenuActionsViewAction_Save;
+    }
     if ([self isExternalScreenAvailable]) {
         menuActions |= [self isContentOnTV] ?  JMMenuActionsViewAction_HideExternalDisplay : JMMenuActionsViewAction_ShowExternalDisplay;
     }
