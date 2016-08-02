@@ -4292,8 +4292,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: TIBCO Software Inc (U54E52GZ8M)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: TIBCO Software Inc (U54E52GZ8M)";
 				COPY_PHASE_STRIP = YES;
 				DEFINES_MODULE = YES;
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
@@ -4326,7 +4326,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.jaspersoft.mobile;
 				PRODUCT_NAME = "TIBCO JasperMobile";
-				PROVISIONING_PROFILE = "085f4a2b-8712-4080-bce1-3afb27684d3a";
+				PROVISIONING_PROFILE = "";
 				RUN_CLANG_STATIC_ANALYZER = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "JasperMobile/Supporting Files/TIBCO JasperMobile-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = "1,2";
